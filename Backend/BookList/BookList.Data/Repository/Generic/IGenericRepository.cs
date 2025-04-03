@@ -10,7 +10,7 @@ namespace BookList.Data.Repository.Generic
     {
         Task AddAsync(T entity);
         Task Update(T entity);
-        void Delete(T entity);
+        Task Delete(T entity);
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
     }

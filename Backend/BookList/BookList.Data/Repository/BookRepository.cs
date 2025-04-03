@@ -21,5 +21,12 @@ namespace BookList.Data.Repository
         {
             return await _context.Books.FirstOrDefaultAsync(b => b.Title == title);
         }
+        public async Task<IEnumerable<Book>> GetAllWithAuthorsAsync()
+        {
+            return await _context.Books
+                .Include(b => b.Author) // Include the related Author entity
+                .AsNoTracking() // Optionally keep AsNoTracking for performance if the data is not modified
+                .ToListAsync();
+        }
     }
 }

@@ -23,10 +23,10 @@ namespace BookList.Data.Repository.Generic
             await _context.SaveChangesAsync();
         }
 
-        public async void Delete(T entity)
+        public async Task Delete(T entity)
         {
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()

@@ -11,5 +11,6 @@ namespace BookList.Data.Repository
     public interface IBookRepository : IGenericRepository<Book>
     {
         Task<Book?> GetBookByTitleAsync(string title);
+        Task<IEnumerable<Book>> GetAllWithAuthorsAsync();
     }
 }
