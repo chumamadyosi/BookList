@@ -99,7 +99,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactBookList", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins("http://localhost:3000/login")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -116,6 +116,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;  // Set the Swagger UI to be at the root of the application
     });
 }
+app.UseCors("AllowReactBookList");
 
 app.UseHttpsRedirection();
 
@@ -123,7 +124,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-app.UseCors("AllowReactBookList");
 
 app.MapControllers();
 
