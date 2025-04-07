@@ -30,11 +30,13 @@ builder.Services.AddScoped<IValidator<UserLoginRequest>, UserLoginRequestValidat
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
 // Add JWT Authentication
@@ -95,14 +97,13 @@ builder.Services.AddSwaggerGen(options =>
 // Add Cors (Optional, useful for front-end access from different origins)
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddPolicy("AllowReactBookList", policy =>
     {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -122,7 +123,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-app.UseCors();
+app.UseCors("AllowReactBookList");
 
 app.MapControllers();
 
