@@ -19,14 +19,16 @@ namespace BookList.DomainService.Book
 
         public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
         {
-            var books = await _bookRepository.GetAllAsync();
+            var books = await _bookRepository.GetAllWithAuthorsAsync();
             return books.Select(b => new BookDto
             {
                 Id = b.BookId,
                 Title = b.Title,
                 AuthorId = b.AuthorId,
                 AuthorName = b.Author.Name, //  the author's name in the DTO/??
-                PublishedYear = b.PublishedYear
+                PublishedYear = b.PublishedYear,
+                ISBN = b.ISBN,
+                Description = b.Description
             });
         }
 
@@ -35,11 +37,13 @@ namespace BookList.DomainService.Book
             var book = await _bookRepository.GetByIdAsync(id);
             return book == null ? null : new BookDto
             {
-                Id = book.BookId, 
+                Id = book.BookId,
                 Title = book.Title,
                 AuthorId = book.AuthorId,
-                AuthorName = book.Author.Name, // Including the Author's Name??
-                PublishedYear = book.PublishedYear
+                AuthorName = book.Author.Name,
+                PublishedYear = book.PublishedYear,
+                ISBN = book.ISBN,
+                Description = book.Description
             };
         }
 
@@ -51,8 +55,10 @@ namespace BookList.DomainService.Book
                 Id = book.BookId,
                 Title = book.Title,
                 AuthorId = book.AuthorId,
-                AuthorName = book.Author.Name, // Including the Author's Name ??
-                PublishedYear = book.PublishedYear
+                AuthorName = book.Author.Name,
+                PublishedYear = book.PublishedYear,
+                ISBN = book.ISBN,
+                Description = book.Description
             };
         }
         public async Task AddBookAsync(BookDto bookDto)
@@ -63,7 +69,7 @@ namespace BookList.DomainService.Book
                 AuthorId = bookDto.AuthorId,
                 PublishedYear = bookDto.PublishedYear,
                 ISBN = bookDto.ISBN,
-                Description = bookDto.Description
+                Description = bookDto.Description,
             };
             await _bookRepository.AddAsync(book);
         }
@@ -76,7 +82,8 @@ namespace BookList.DomainService.Book
                 book.Title = bookDto.Title;
                 book.AuthorId = bookDto.AuthorId;
                 book.PublishedYear = bookDto.PublishedYear;
-
+                book.ISBN = bookDto.ISBN;
+                book.Description = bookDto.Description;
                 await _bookRepository.Update(book);
             }
         }
@@ -86,7 +93,7 @@ namespace BookList.DomainService.Book
             var book = await _bookRepository.GetByIdAsync(id);
             if (book != null)
             {
-                _bookRepository.Delete(book);
+               await _bookRepository.Delete(book);
             }
         }
     }
