@@ -24,8 +24,8 @@ namespace BookList.Data.Repository
         public async Task<IEnumerable<Book>> GetAllWithAuthorsAsync()
         {
             return await _context.Books
-                .Include(b => b.Author) // Include the related Author entity
-                .AsNoTracking() // Optionally keep AsNoTracking for performance if the data is not modified
+                .Include(b => b.Author) 
+                .AsNoTracking() 
                 .ToListAsync();
         }
     }
