@@ -96,9 +96,9 @@ namespace BookList.DomainService.Book
                await _bookRepository.Delete(book);
             }
         }
-        public async Task<BookListResponseDto> GetBooksPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellation)
+        public async Task<BookListResponseDto> GetBooksPaginatedAsync(int pageNumber, int pageSize, string searchQuery, CancellationToken cancellation)
         {
-            var (books, totalCount) = await _bookRepository.GetBooksPaginatedAsync(pageNumber, pageSize, cancellation);
+            var (books, totalCount) = await _bookRepository.GetBooksPaginatedAsync(pageNumber, pageSize, searchQuery, cancellation);
 
             var dtoList = books.Select(b => new BookDto
             {

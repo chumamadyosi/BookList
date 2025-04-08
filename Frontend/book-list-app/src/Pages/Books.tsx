@@ -4,7 +4,7 @@ import { Book } from '../Interfaces/Book';
 import {
   Container, Typography, Paper, Table, TableBody, TableCell,
   TableContainer, TableHead, TableRow, IconButton, CircularProgress,
-  Box, Button, Stack, TablePagination
+  Box, Button, Stack, TablePagination, TextField
 } from '@mui/material';
 import { Edit, Delete, Add, ExitToApp } from '@mui/icons-material';
 import BookForm from './BookForm';
@@ -18,15 +18,16 @@ const BookList: React.FC = () => {
   const [showForm, setShowForm] = useState<boolean>(false); 
   const [page, setPage] = useState<number>(0); 
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [searchQuery, setSearchQuery] = useState<string>(''); // For the search query
 
   useEffect(() => {
     fetchBooks(); 
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, searchQuery]); // Trigger on page, rowsPerPage, or searchQuery change
 
   const fetchBooks = async () => {
     setLoading(true);
     try {
-      const response = await BookService.getBooks(page + 1, rowsPerPage); 
+      const response = await BookService.getBooks(page + 1, rowsPerPage, searchQuery); 
       setBooks(response.books); 
       setTotalCount(response.totalCount); 
     } catch (error) {
@@ -102,7 +103,7 @@ const BookList: React.FC = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{ mt: 4 }}>
       {showForm ? (
         <BookForm editingBook={editingBook} onCancel={handleCancel} onSave={handleSave} />
       ) : (
@@ -118,6 +119,16 @@ const BookList: React.FC = () => {
               </Button>
             </Stack>
           </Stack>
+
+          {/* Search input moved to a new line with spacing */}
+          <TextField
+            label="Search"
+            variant="outlined"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            fullWidth
+            sx={{ mb: 1, maxWidth: '300px'}} // Adds margin below and ensures it's narrower
+          />
 
           <Paper elevation={3} sx={{ padding: 2 }}>
             <TableContainer component={Paper}>

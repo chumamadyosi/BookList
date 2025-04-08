@@ -15,9 +15,9 @@ class BookService {
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
-  static async getBooks(page: number = 1, pageSize: number = 5): Promise<BookListResponse> {
+  static async getBooks(page: number = 1, pageSize: number = 5,searchQuery: string = ''): Promise<BookListResponse> {
     try {
-      const response = await axios.get(API_URL+`?page=${page}&pageSize=${pageSize}`, {
+      const response = await axios.get(API_URL+`?page=${page}&pageSize=${pageSize}&searchQuery=${searchQuery}`, {
         headers: this.getRequestHeaders(),
       });
       const { books, totalCount } = response.data.data; 

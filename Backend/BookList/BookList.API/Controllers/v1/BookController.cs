@@ -24,11 +24,11 @@ namespace BookList.API.Controllers.v1
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<BookListResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<BookListResponseDto>), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ApiResponse<BookListResponseDto>>> GetBooks(CancellationToken cancellationToken,[FromQuery] int pageNumber = 1,[FromQuery] int pageSize = 10)
+        public async Task<ActionResult<ApiResponse<BookListResponseDto>>> GetBooks(CancellationToken cancellationToken,[FromQuery] int pageNumber = 1,[FromQuery] int pageSize = 10, [FromQuery] string searchQuery = "")
         {
             try
             {
-                var result = await _bookService.GetBooksPaginatedAsync(pageNumber, pageSize, cancellationToken);
+                var result = await _bookService.GetBooksPaginatedAsync(pageNumber, pageSize, searchQuery, cancellationToken);
 
                 return Ok(new ApiResponse<BookListResponseDto>().OK(result!));
             }

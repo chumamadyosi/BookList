@@ -18,6 +18,6 @@ namespace BookList.DomainService.Book
         Task DeleteBookAsync(int id);
         // Task<IEnumerable<BookDto>> GetBooksAsync(int pageNumber, int pageSize);
         //Task<(IEnumerable<BookDto> Books, int TotalCount)> GetBooksPaginatedAsync(int pageNumber, int pageSize);
-        Task<BookListResponseDto> GetBooksPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellation);
+        Task<BookListResponseDto> GetBooksPaginatedAsync(int pageNumber, int pageSize, string searchQuery, CancellationToken cancellation);
     }
 }
