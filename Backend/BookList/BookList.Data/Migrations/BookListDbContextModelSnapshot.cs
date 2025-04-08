@@ -48,7 +48,7 @@ namespace BookList.Data.Migrations
                         {
                             AuthorId = 2,
                             Name = "George R. R. Martin"
-                        });
+                });
                 });
 
             modelBuilder.Entity("BookList.Data.Entities.Book", b =>
