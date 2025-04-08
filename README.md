@@ -115,3 +115,5 @@ cd book-list-app/
 npm install
 npm start
 
+// Note: I'm still improving my frontend skills, so feedback is welcome! Not an expert yet, but I'm doing my best. 😊
+
