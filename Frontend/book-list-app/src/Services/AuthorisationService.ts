@@ -1,6 +1,6 @@
 import axios from "axios";
-import { LoginPayload } from "../Interfaces/uthorisationInterfaces/LoginPayload";
-import { LoginResponse } from "../Interfaces/uthorisationInterfaces/LoginResponse";
+import { LoginPayload } from "../Interfaces/LoginPayload";
+import { LoginResponse } from "../Interfaces/LoginResponse";
 
 const API_URL = process.env.REACT_APP_Book_List_API + "Authentication";
 

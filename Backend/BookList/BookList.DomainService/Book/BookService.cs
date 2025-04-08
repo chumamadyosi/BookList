@@ -1,6 +1,7 @@
 ﻿using BookList.Data.Entities;
 using BookList.Data.Repository;
 using BookList.DomainService.DTOs;
+using BookList.DomainService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace BookList.DomainService.Book
                 Id = b.BookId,
                 Title = b.Title,
                 AuthorId = b.AuthorId,
-                AuthorName = b.Author.Name, //  the author's name in the DTO/??
+                AuthorName = b.Author.Name,
                 PublishedYear = b.PublishedYear,
                 ISBN = b.ISBN,
                 Description = b.Description
@@ -40,7 +41,6 @@ namespace BookList.DomainService.Book
                 Id = book.BookId,
                 Title = book.Title,
                 AuthorId = book.AuthorId,
-                AuthorName = book.Author.Name,
                 PublishedYear = book.PublishedYear,
                 ISBN = book.ISBN,
                 Description = book.Description
@@ -95,6 +95,27 @@ namespace BookList.DomainService.Book
             {
                await _bookRepository.Delete(book);
             }
+        }
+        public async Task<BookListResponseDto> GetBooksPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellation)
+        {
+            var (books, totalCount) = await _bookRepository.GetBooksPaginatedAsync(pageNumber, pageSize, cancellation);
+
+            var dtoList = books.Select(b => new BookDto
+            {
+                Id = b.BookId,
+                Title = b.Title,
+                AuthorId = b.AuthorId,
+                AuthorName = b.Author?.Name ?? "Unknown",
+                PublishedYear = b.PublishedYear,
+                ISBN = b.ISBN,
+                Description = b.Description
+            }).ToList(); 
+
+            return new BookListResponseDto
+            {
+                Books = dtoList,
+                TotalCount = totalCount
+            };
         }
     }
 }

@@ -14,8 +14,12 @@ using FluentValidation;
 using BookList.DomainService.DTOs;
 using BookList.DomainService.Validation;
 using BookList.DomainService;
+using BookList.Core;
+using BookList.DomainService.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogging();
 
 builder.Services.AddControllers();
 
@@ -38,6 +42,7 @@ builder.Services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.AddScoped(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>));
 
 // Add JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings"); // Fetch JWT settings from appsettings.json
@@ -47,10 +52,11 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
-    options.RequireHttpsMetadata = true;
+    options.RequireHttpsMetadata = false;
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -62,7 +68,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings["Audience"],
         ClockSkew = TimeSpan.Zero
     };
-});
+});builder.Services.AddAuthorization();
 
 // Register OpenAPI (Swagger) for API documentation
 builder.Services.AddEndpointsApiExplorer();  // This is required for OpenAPI/Swagger
@@ -99,7 +105,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactBookList", policy =>
     {
-        policy.WithOrigins("http://localhost:3000/login")
+        policy.WithOrigins("http://localhost:3000")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -123,6 +129,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 
 app.MapControllers();

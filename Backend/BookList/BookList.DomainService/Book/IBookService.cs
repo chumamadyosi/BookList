@@ -1,4 +1,5 @@
 ﻿using BookList.DomainService.DTOs;
+using BookList.DomainService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,8 @@ namespace BookList.DomainService.Book
         Task AddBookAsync(BookDto bookDto);
         Task UpdateBookAsync(BookDto bookDto);
         Task DeleteBookAsync(int id);
+        // Task<IEnumerable<BookDto>> GetBooksAsync(int pageNumber, int pageSize);
+        //Task<(IEnumerable<BookDto> Books, int TotalCount)> GetBooksPaginatedAsync(int pageNumber, int pageSize);
+        Task<BookListResponseDto> GetBooksPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellation);
     }
 }

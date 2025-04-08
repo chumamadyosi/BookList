@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BookService from '../Services/BookService';
-import { Book } from '../Interfaces/uthorisationInterfaces/Book'; // Import the Book type
-import { Author } from '../Interfaces/uthorisationInterfaces/Author';
+import { Book } from '../Interfaces/Book'; // Import the Book type
+import { Author } from '../Interfaces/Author';
 import { 
   Container, Typography, TextField, Button, Paper, Stack, Box, MenuItem, Select, InputLabel, FormControl, SelectChangeEvent 
 } from '@mui/material';

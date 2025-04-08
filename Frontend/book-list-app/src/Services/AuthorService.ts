@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Author } from '../Interfaces/uthorisationInterfaces/Author';
+import { Author } from '../Interfaces/Author';
 
 const API_URL = process.env.REACT_APP_Book_List_API + 'author'; 
 

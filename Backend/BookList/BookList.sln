@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookList.DomainService", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookList.API", "BookList.API\BookList.API.csproj", "{5C769392-E5A6-4213-BC6D-5BC52594F7D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookList.Core", "BookList.Core\BookList.Core.csproj", "{42AFCDFF-B09E-4C71-870D-AD15C6FD2E07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5C769392-E5A6-4213-BC6D-5BC52594F7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C769392-E5A6-4213-BC6D-5BC52594F7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C769392-E5A6-4213-BC6D-5BC52594F7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42AFCDFF-B09E-4C71-870D-AD15C6FD2E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42AFCDFF-B09E-4C71-870D-AD15C6FD2E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42AFCDFF-B09E-4C71-870D-AD15C6FD2E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42AFCDFF-B09E-4C71-870D-AD15C6FD2E07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

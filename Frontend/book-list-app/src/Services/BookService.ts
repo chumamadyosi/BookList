@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { Book } from '../Interfaces/uthorisationInterfaces/Book';
-import { Author } from '../Interfaces/uthorisationInterfaces/Author';
+import { Book } from '../Interfaces/Book';
+import { BookListResponse } from '../Interfaces/BookListResponse';
 
-const API_URL = process.env.REACT_APP_Book_List_API + 'book'; 
+const API_URL = process.env.REACT_APP_Book_List_API + 'book';
 
 class BookService {
-
   static getToken(): string | null {
-    return localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    return token;
   }
 
   static getRequestHeaders() {
@@ -15,14 +15,20 @@ class BookService {
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
-  static async getBooks(): Promise<Book[]> {
+  static async getBooks(page: number = 1, pageSize: number = 5): Promise<BookListResponse> {
     try {
-      const response = await axios.get(API_URL, {
+      const response = await axios.get(API_URL+`?page=${page}&pageSize=${pageSize}`, {
         headers: this.getRequestHeaders(),
       });
-      return response.data;
+      const { books, totalCount } = response.data.data; 
+      const data: BookListResponse = {
+        books,
+        totalCount,
+      };
+      return data;
     } catch (error) {
-      throw new Error('Error fetching books');
+      console.error('Error fetching books:', error);
+      throw new Error('Failed to fetch books');
     }
   }
 
@@ -36,7 +42,6 @@ class BookService {
       throw new Error('Error fetching book');
     }
   }
-
 
   static async createBook(book: Book): Promise<Book> {
     try {

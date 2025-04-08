@@ -12,5 +12,6 @@ namespace BookList.Data.Repository
     {
         Task<Book?> GetBookByTitleAsync(string title);
         Task<IEnumerable<Book>> GetAllWithAuthorsAsync();
+        Task<(IEnumerable<Book>, int)> GetBooksPaginatedAsync(int page, int size, CancellationToken cancellation);
     }
 }

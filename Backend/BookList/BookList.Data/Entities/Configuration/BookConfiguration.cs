@@ -31,6 +31,25 @@ namespace BookList.Data.Entities.Configuration
                 .WithMany(a => a.Books)
                 .HasForeignKey(b => b.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Index on Title for performance (querying books by Title) 
+            // Index on ISBN for performance (querying books by ISBN)
+            // Composite Index on AuthorId and PublishedYear for fast queries involving both columns
+            // Unique Index on ISBN to enforce uniqueness
+            builder.HasIndex(b => b.Title)
+                .HasDatabaseName("IX_Books_Title");
+           
+            builder.HasIndex(b => b.ISBN)
+                .HasDatabaseName("IX_Books_ISBN");
+     
+            builder.HasIndex(b => new { b.AuthorId, b.PublishedYear })
+                .HasDatabaseName("IX_Books_AuthorId_PublishedYear");
+    
+            builder.HasIndex(b => b.ISBN)
+                .IsUnique()
+                .HasDatabaseName("IX_Books_ISBN_Unique");
+
+          
         }
     }
 }

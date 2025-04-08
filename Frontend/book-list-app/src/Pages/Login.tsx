@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, TextField, Button, Typography, Box, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { LoginPayload } from "../Interfaces/uthorisationInterfaces/LoginPayload";
+import { LoginPayload } from "../Interfaces/LoginPayload";
 import { AuthenticateUser } from "../Services/AuthorisationService";
 
 const Login: React.FC = () => {

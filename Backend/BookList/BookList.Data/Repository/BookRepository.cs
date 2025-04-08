@@ -28,5 +28,24 @@ namespace BookList.Data.Repository
                 .AsNoTracking() 
                 .ToListAsync();
         }
+
+        public async Task<(IEnumerable<Book>, int)> GetBooksPaginatedAsync(int page, int size, CancellationToken cancellation)
+        {
+            var skip = (page - 1) * size;
+
+            var query = _context.Books
+                .Include(b => b.Author) // Required for AuthorName in DTO
+                .AsNoTracking();
+
+            var totalCount = await query.CountAsync(cancellation);
+
+            var books = await query
+                .OrderBy(b => b.Title)
+                .Skip(skip)
+                .Take(size)
+                .ToListAsync(cancellation);
+
+            return (books, totalCount);
+        }
     }
 }
