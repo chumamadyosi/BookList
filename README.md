@@ -115,5 +115,5 @@ cd book-list-app/
 npm install
 npm start
 
-// Note: I'm still improving my frontend skills, so feedback is welcome! Not an expert yet, but I'm doing my best. 😊
+// Note: I'm a backend developer by trade — frontend isn’t my strongest suit, so feedback is welcome! Not  expert, but I do my best. 😊
 
