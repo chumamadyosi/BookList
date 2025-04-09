@@ -30,7 +30,7 @@ namespace BookList.Data
         public DbSet<User> Users { get; set; }
         private static void CreateSeedUsers(ModelBuilder modelBuilder)
         {
-            //create seed users with hashed passwords
+          
             modelBuilder.Entity<User>().HasData(
                new User
                {
@@ -69,7 +69,7 @@ namespace BookList.Data
                 {
                     BookId = 1,
                     Title = "Harry Potter and the Philosopher's Stone",
-                    AuthorId = 1, // Link to J.K. Rowling
+                    AuthorId = 1, 
                     PublishedYear = 1997,
                     ISBN = "9780747532743",
                     Description = "The first book in the Harry Potter series."
@@ -78,7 +78,7 @@ namespace BookList.Data
                 {
                     BookId = 2,
                     Title = "A Game of Thrones",
-                    AuthorId = 2, // Link to George R. R. Martin
+                    AuthorId = 2, 
                     PublishedYear = 1996,
                     ISBN = "9780553103540",
                     Description = "The first book in the A Song of Ice and Fire series."
