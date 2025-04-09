@@ -115,5 +115,12 @@ cd book-list-app/
 npm install
 npm start
 
+🔐 Test Login Credentials
+
+- **Username:** `admin`
+- **Password:** `Admin@123`
+
+> Use these credentials to log in during local test.
+
 // Note: I'm a backend developer by trade — frontend isn’t my strongest suit, so feedback is welcome! Not  expert, but I do my best. 😊
 
